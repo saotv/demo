@@ -1,21 +1,24 @@
 import streamlit as st
-from streamlit import cli as stcli
-import sys
-import subprocess
+from streamlit_multipage import MultiPage
+
+# 创建一个MultiPage对象
+app = MultiPage()
 
 # 设置页面标题
 st.title('欢迎来到游戏中心')
 
-# 创建侧边栏选择器来选择不同的游戏
-st.sidebar.title('游戏选择')
-page = st.sidebar.radio("请选择一个游戏：", ['猜数字游戏', '游戏2', '游戏3'])
+# 导入其他页面的函数
+from game1 import game1_page
 
-# 根据选择的页面，运行对应的游戏
-if page == '猜数字游戏':
-    # 运行game1.py
-    if st.button('开始猜数字游戏'):
-        subprocess.run(['streamlit', 'run', 'game1.py'])
-elif page == '游戏2':
-    st.write('这里将会是游戏2的内容。')
-elif page == '游戏3':
-    st.write('这里将会是游戏3的内容。')
+# 添加页面到应用
+app.add_page("猜数字游戏", game1_page)
+
+# 你可以继续添加其他游戏的页面
+# from game2 import game2_page
+# app.add_page("游戏2", game2_page)
+
+# from game3 import game3_page
+# app.add_page("游戏3", game3_page)
+
+# 运行应用
+app.run()
